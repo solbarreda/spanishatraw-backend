@@ -31,3 +31,9 @@ $ python manage.py migrate
 ```bash
 $ python manage.py runserver 0.0.0.0:8000
 ```
+
+## Create superuser
+
+```bash
+$ python manage.py createsuperuser
+```
