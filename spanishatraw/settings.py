@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 import environ
 
@@ -130,7 +131,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(root - 2, 'static')
+STATICFILES_DIRS = []
 
 MEDIA_URL = '/media/'
-
-MEDIA_ROOT = f'{root - 2}/media/'
+MEDIA_ROOT = os.path.join(root - 2, 'media')
