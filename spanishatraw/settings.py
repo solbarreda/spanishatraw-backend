@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
-import os
-from pathlib import Path
+import django_heroku
 import environ
+import os
+
+
+from pathlib import Path
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -136,3 +139,6 @@ STATICFILES_DIRS = []
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(root - 2, 'media')
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
