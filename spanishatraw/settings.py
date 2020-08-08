@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import django_heroku
+import dj_database_url
 import environ
+import dotenv
 import os
 
 
@@ -23,20 +25,13 @@ env = environ.Env(
 root = environ.Path(__file__) - 1
 environ.Env.read_env('%s/.env' % str(root - 1))
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -46,7 +41,8 @@ THIRD_PARTY_APPS = [
 
 PROJECT_APPS = [
     'services',
-    'prices',
+    'payment',
+    'about',
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + [
@@ -88,17 +84,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'spanishatraw.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
-    'default': env.db(),
+    'default': env.db(),  # dj_database_url.config(conn_max_age=600),
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -114,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -142,3 +129,7 @@ MEDIA_ROOT = os.path.join(root - 2, 'media')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# Pop database ssl issue
+options = DATABASES['default'].get('OPTIONS', {})
+options.pop('sslmode', None)

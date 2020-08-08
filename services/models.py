@@ -67,11 +67,11 @@ class Service(models.Model):
     timestamp = models.DateTimeField(
         verbose_name='Timestamp', auto_now_add=True, null=False)
     image = models.ImageField(
-        verbose_name='Service image', upload_to='photos', max_length=256,
+        verbose_name='Service image', upload_to='services', max_length=256,
         null=False)
     schedule = models.JSONField(verbose_name='Schedule', null=False)
     price = models.ForeignKey(
-        verbose_name='Price', to='prices.Price', on_delete=models.CASCADE)
+        verbose_name='Price', to='payment.Price', on_delete=models.CASCADE)
     age_range = models.ForeignKey(
         verbose_name='Age range', to='services.AgeRange',
         on_delete=models.CASCADE)

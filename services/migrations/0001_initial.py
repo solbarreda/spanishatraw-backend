@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('prices', '0001_initial'),
+        ('payment', '0001_initial'),
     ]
 
     operations = [
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(max_length=256, upload_to='photos', verbose_name='Service image')),
                 ('schedule', models.JSONField(verbose_name='Schedule')),
                 ('age_range', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='services.agerange', verbose_name='Age range')),
-                ('price', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='prices.price', verbose_name='Price')),
+                ('price', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='payment.price', verbose_name='Price')),
             ],
             options={
                 'verbose_name': ('Service',),
