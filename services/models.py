@@ -28,6 +28,7 @@ class Homework(models.Model):
     :cvar file: File associated.
     :cvar description: Description of the homework.
     :cvar name: Homework name.
+    :cvar service: Service associated.
     """
 
     file = models.FileField(
