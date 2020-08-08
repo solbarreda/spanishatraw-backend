@@ -1,15 +1,11 @@
 from rest_framework import serializers
 
-from .models import Service, AgeRange, Homework
-
-
-class ServiceSerializer(serializers.ModelSerializer):
-    """Service serializer."""
-
-    class Meta:
-        model = Service
-        fields = [
-            'id', 'name', 'timestamp', 'image', 'schedule', 'price', 'age_range', ]
+from payment.serializers import PriceSerializer
+from .models import (
+    Service,
+    AgeRange,
+    Homework,
+)
 
 
 class AgeRangeSerializer(serializers.ModelSerializer):
@@ -20,8 +16,22 @@ class AgeRangeSerializer(serializers.ModelSerializer):
         fields = ['id', 'min', 'max', ]
 
 
+class ServiceSerializer(serializers.ModelSerializer):
+    """Service serializer."""
+
+    price = PriceSerializer()
+    age_range = AgeRangeSerializer()
+
+    class Meta:
+        model = Service
+        fields = [
+            'id', 'name', 'timestamp', 'image', 'schedule', 'price', 'age_range', ]
+
+
 class HomeworkSerializer(serializers.ModelSerializer):
     """Homework serializer."""
+
+    service = ServiceSerializer()
 
     class Meta:
         model = Homework
