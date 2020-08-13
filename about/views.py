@@ -22,7 +22,6 @@ class TestimonialViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Testimonial.objects.all()
     serializer_class = TestimonialSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class ContactUsViewSet(viewsets.ModelViewSet):
@@ -32,7 +31,6 @@ class ContactUsViewSet(viewsets.ModelViewSet):
 
     queryset = ContactUs.objects.all()
     serializer_class = ContactUsSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class FeatureViewSet(viewsets.ReadOnlyModelViewSet):
@@ -42,7 +40,6 @@ class FeatureViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Feature.objects.all()
     serializer_class = FeatureSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class EvidenceGalleryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -52,4 +49,3 @@ class EvidenceGalleryViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = EvidenceGallery.objects.all()
     serializer_class = EvidenceGallerySerializer
-    permission_classes = [permissions.IsAuthenticated]

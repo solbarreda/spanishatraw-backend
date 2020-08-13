@@ -20,7 +20,6 @@ class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class HomeworkViewSet(viewsets.ReadOnlyModelViewSet):
@@ -30,7 +29,6 @@ class HomeworkViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Homework.objects.all()
     serializer_class = HomeworkSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class AgeRangeViewSet(viewsets.ReadOnlyModelViewSet):
@@ -40,4 +38,3 @@ class AgeRangeViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = AgeRange.objects.all()
     serializer_class = AgeRangeSerializer
-    permission_classes = [permissions.IsAuthenticated]
