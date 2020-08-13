@@ -37,6 +37,7 @@ ALLOWED_HOSTS = []
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'corsheaders',
 ]
 
 PROJECT_APPS = [
@@ -56,6 +57,7 @@ INSTALLED_APPS = THIRD_PARTY_APPS + [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -129,6 +131,9 @@ MEDIA_ROOT = os.path.join(root - 2, 'media')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Pop database ssl issue
 options = DATABASES['default'].get('OPTIONS', {})
