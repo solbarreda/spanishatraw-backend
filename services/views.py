@@ -1,15 +1,19 @@
+"""Services views."""
 from rest_framework import viewsets
-from rest_framework import permissions
 
 from .models import (
     Service,
-    AgeRange,
+    GradeRange,
     Homework,
+    ServiceLevel,
+    ServiceType,
 )
 from .serializers import (
     ServiceSerializer,
     HomeworkSerializer,
-    AgeRangeSerializer,
+    GradeRangeSerializer,
+    ServiceLevelSerializer,
+    ServiceTypeSerializer,
 )
 
 
@@ -31,10 +35,28 @@ class HomeworkViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = HomeworkSerializer
 
 
-class AgeRangeViewSet(viewsets.ReadOnlyModelViewSet):
+class GradeRangeViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that serves age ranges to be viewed only.
+    API endpoint that serves grade ranges to be viewed only.
     """
 
-    queryset = AgeRange.objects.all()
-    serializer_class = AgeRangeSerializer
+    queryset = GradeRange.objects.all()
+    serializer_class = GradeRangeSerializer
+
+
+class ServiceLevelViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that serves service level to be viewed only.
+    """
+
+    queryset = ServiceLevel.objects.all()
+    serializer_class = ServiceLevelSerializer
+
+
+class ServiceTypeViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that serves service type to be viewed only.
+    """
+
+    queryset = ServiceType.objects.all()
+    serializer_class = ServiceTypeSerializer

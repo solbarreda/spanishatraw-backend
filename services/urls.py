@@ -3,13 +3,18 @@ from rest_framework import routers
 
 from .views import (
     ServiceViewSet,
-    AgeRangeViewSet,
+    GradeRangeViewSet,
+    ServiceLevelViewSet,
+    ServiceTypeViewSet,
     HomeworkViewSet,
 )
 
 router = routers.DefaultRouter()
 router.register(r'services', ServiceViewSet, basename='services')
-router.register(r'age-range', AgeRangeViewSet, basename='age-range')
+router.register(r'grade-range', GradeRangeViewSet, basename='age-range')
+router.register(
+    r'service-level', ServiceLevelViewSet, basename='service-level')
+router.register(r'service-type', ServiceTypeViewSet, basename='service-type')
 router.register(r'homework', HomeworkViewSet, basename='homework')
 
 urlpatterns = [

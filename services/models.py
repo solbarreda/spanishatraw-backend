@@ -1,23 +1,25 @@
 from django.db import models
 
 
-class AgeRange(models.Model):
+class GradeRange(models.Model):
     """
-    Age ranges for each service.
+    Grade ranges for each service.
 
     :cvar min: Minimum age.
     :cvar max: Maximum age.
     """
 
-    min = models.PositiveSmallIntegerField(verbose_name='Minimum age')
-    max = models.PositiveSmallIntegerField(verbose_name='Maximum age')
+    min = models.CharField(verbose_name='Minimum',
+                           max_length=64, null=False, blank=False)
+    max = models.CharField(verbose_name='Maximum',
+                           max_length=64, null=False, blank=False)
 
     class Meta:
-        verbose_name = 'Age range'
-        verbose_name_plural = 'Age ranges'
+        verbose_name = 'Grade range'
+        verbose_name_plural = 'Grade ranges'
 
     def __str__(self):
-        """Age range."""
+        """Grade range."""
         return f'From {self.min} to {self.max}'
 
 
@@ -50,6 +52,44 @@ class Homework(models.Model):
         return self.name.title()
 
 
+class ServiceLevel(models.Model):
+    """
+    Service level
+
+    :cvar description: Charfield, level description
+    """
+
+    description = models.CharField(
+        verbose_name='description', max_length=128, null=False, blank=False)
+
+    class Meta:
+        verbose_name = 'Service Level'
+        verbose_name_plural = 'Service Levels'
+
+    def __str__(self):
+        """Service level."""
+        return f'{self.description}'
+
+
+class ServiceType(models.Model):
+    """
+    Service Type
+
+    :cvar description: Charfield, type description
+    """
+
+    description = models.CharField(
+        verbose_name='description', max_length=128, null=False, blank=False)
+
+    class Meta:
+        verbose_name = 'Service Type'
+        verbose_name_plural = 'Service Types'
+
+    def __str__(self):
+        """Service Type."""
+        return f'{self.description}'
+
+
 class Service(models.Model):
     """
     Service offered.
@@ -73,8 +113,14 @@ class Service(models.Model):
     schedule = models.JSONField(verbose_name='Schedule', null=False)
     price = models.ForeignKey(
         verbose_name='Price', to='payment.Price', on_delete=models.CASCADE)
-    age_range = models.ForeignKey(
-        verbose_name='Age range', to='services.AgeRange',
+    grade_range = models.ForeignKey(
+        verbose_name='Grade range', to='services.GradeRange',
+        on_delete=models.CASCADE)
+    level = models.ForeignKey(
+        verbose_name='Service level', to='services.ServiceLevel',
+        on_delete=models.CASCADE)
+    type = models.ForeignKey(
+        verbose_name='Service type', to='services.ServiceType',
         on_delete=models.CASCADE)
 
     class Meta:
