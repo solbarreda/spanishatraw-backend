@@ -20,7 +20,12 @@ class GradeRange(models.Model):
 
     def __str__(self):
         """Grade range."""
-        return f'From {self.min} to {self.max}'
+        return self.name
+
+    @property
+    def name(self):
+        """Grade range."""
+        return f'{self.min} - {self.max}'
 
 
 class Homework(models.Model):
@@ -95,6 +100,7 @@ class Service(models.Model):
     Service offered.
 
     :cvar name: Service name.
+    :cvar description: Service description.
     :cvar timestamp: Creation date.
     :cvar image: Image associated.
     :cvar schedule: Schedule of service.
@@ -105,6 +111,8 @@ class Service(models.Model):
 
     name = models.CharField(
         verbose_name='Name', max_length=128, null=False, blank=False)
+    description = models.TextField(
+        verbose_name='Description', blank=False, null=False)
     timestamp = models.DateTimeField(
         verbose_name='Timestamp', auto_now_add=True, null=False)
     image = models.ImageField(

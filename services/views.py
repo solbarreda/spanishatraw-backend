@@ -1,5 +1,7 @@
 """Services views."""
-from rest_framework import viewsets
+from rest_framework import viewsets, views
+from rest_framework.response import Response
+from django_filters import rest_framework as filters
 
 from .models import (
     Service,
@@ -24,6 +26,8 @@ class ServiceViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('type', 'level', 'grade_range')
 
 
 class HomeworkViewSet(viewsets.ReadOnlyModelViewSet):
@@ -33,6 +37,9 @@ class HomeworkViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Homework.objects.all()
     serializer_class = HomeworkSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = (
+        'service__type', 'service__level', 'service__grade_range', 'service')
 
 
 class GradeRangeViewSet(viewsets.ReadOnlyModelViewSet):
@@ -60,3 +67,18 @@ class ServiceTypeViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = ServiceType.objects.all()
     serializer_class = ServiceTypeSerializer
+
+
+class ServiceFilterValuesViewSet(views.APIView):
+    """View to get service filter options based on level, range and type."""
+
+    def get(self, request, format=None):
+        """Return a list of all options."""
+        response = {
+            'levels': ServiceLevel.objects.all().values('id', 'description'),
+            'grades': GradeRange.objects.all().values(
+                'id', 'min', 'max'),
+            'types': ServiceType.objects.all().values('id', 'description'),
+            'services': Service.objects.all().values('id', 'name'),
+        }
+        return Response(response)

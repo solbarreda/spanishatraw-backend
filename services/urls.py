@@ -7,6 +7,7 @@ from .views import (
     ServiceLevelViewSet,
     ServiceTypeViewSet,
     HomeworkViewSet,
+    ServiceFilterValuesViewSet,
 )
 
 router = routers.DefaultRouter()
@@ -19,4 +20,5 @@ router.register(r'homework', HomeworkViewSet, basename='homework')
 
 urlpatterns = [
     path('', include(router.urls)),
+    path(r'filter-options', ServiceFilterValuesViewSet.as_view(), name='filter-options')
 ]
