@@ -45,6 +45,7 @@ PROJECT_APPS = [
     'services',
     'payment',
     'about',
+    'users',
 ]
 
 INSTALLED_APPS = THIRD_PARTY_APPS + [

@@ -1,7 +1,7 @@
 """Services serializer."""
 from rest_framework import serializers
 
-from payment.serializers import PriceSerializer
+from payment.invoice_serializer import PriceSerializer
 from .models import (
     Service,
     GradeRange,
@@ -46,8 +46,8 @@ class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = [
-            'id', 'name', 'description', 'timestamp', 'image', 'schedule', 'price',
-            'grade_range', 'level', 'type']
+            'id', 'name', 'description', 'timestamp', 'image', 'schedule',
+            'price', 'grade_range', 'level', 'type']
 
 
 class HomeworkSerializer(serializers.ModelSerializer):
