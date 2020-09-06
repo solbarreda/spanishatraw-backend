@@ -35,7 +35,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', test),
+    # path('test/', test),
     path('api/v1/', include([
         path('auth/', include('rest_framework.urls')),
         path('services/', include('services.urls')),
