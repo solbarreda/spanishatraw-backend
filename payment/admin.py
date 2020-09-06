@@ -9,13 +9,19 @@ from .models import (
     Payment,
 )
 
+
+@admin.register(Payment)
+class PaymentAdmin(ReadOnlyAdminMixin):
+    """Payment admin."""
+
+    pass
+
+
+@admin.register(Invoice)
+class InvoiceAdmin(ReadOnlyAdminMixin):
+    """Payment admin."""
+
+    pass
+
+
 admin.site.register(Price)
-admin.site.register(Invoice)
-
-
-admin.site.register(Payment)
-# @admin.register(Payment)
-# class Payment(ReadOnlyAdminMixin):
-#     """Payment admin."""
-
-#     pass
