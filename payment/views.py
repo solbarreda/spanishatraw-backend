@@ -2,14 +2,16 @@
 
 from django.utils.timezone import now
 from django.db.transaction import atomic
+from django.conf import settings
 
 from rest_framework import viewsets, status, mixins
 from rest_framework.response import Response
 
+from spanishatraw.email_sender import EmailSender
 from users.models import Customer
 from services.models import Service
 
-from .models import Invoice
+from .models import Invoice, Payment
 from .invoice_serializer import InvoiceSerializer
 from .serializers import PaymentSerializer
 
@@ -28,6 +30,21 @@ class PaymentViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
 
     serializer_class = PaymentSerializer
 
+    def send_order_email(self, invoice: Invoice, payment: Payment):
+        sender = EmailSender(html_template='payment/email.html',
+                             text_template='payment/email.txt')
+        sender.send_email(
+            subject='Payment invoice',
+            sender=settings.EMAIL_SENDER,
+            recipient=invoice.customer.email,
+            email_context={
+                'customer': invoice.customer,
+                'invoice': invoice,
+                'payment': payment,
+                'service': invoice.service,
+            }
+        )
+
     @atomic()
     def create_order(self, serializer):
         """
@@ -45,11 +62,13 @@ class PaymentViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
             currency=service.price.currency,
             timestamp=now(),
             customer=customer,
+            service=service
         )
         invoice.save()
-        invoice.service.add(service)
         serializer.validated_data['invoice_id'] = invoice.id
         serializer.save()
+
+        self.send_order_email(invoice, serializer.instance)
 
     def create(self, request, *args, **kwargs):
         """Register payment."""

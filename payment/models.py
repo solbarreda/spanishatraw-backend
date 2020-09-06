@@ -50,8 +50,8 @@ class Invoice(models.Model):
     :cvar user: User related to the invoice.
     """
 
-    service = models.ManyToManyField(
-        verbose_name='Invoice', to='services.Service')
+    service = models.ForeignKey(
+        verbose_name='Invoice', to='services.Service', on_delete=models.DO_NOTHING)
     charged_amount = models.DecimalField(
         verbose_name='Charged amount', max_digits=8, decimal_places=2)
     currency = models.CharField(verbose_name='Currency', max_length=3)

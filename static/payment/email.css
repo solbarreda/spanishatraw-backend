@@ -1,0 +1,57 @@
+.body-container {
+  margin: 5% 15%;
+  font-family: sans-serif;
+}
+
+.header {
+  position: absolute;
+  width: 70%;
+  top: 0;
+  height: 70px;
+  background: #2bbc7e;
+  color: white;
+  display: flex;
+}
+
+.footer {
+  position: absolute;
+  width: 70%;
+  bottom: 0;
+  height: 70px;
+  background: #2bbc7e;
+  color: white;
+  display: flex;
+}
+
+.header span,
+.footer span {
+  margin: auto;
+}
+
+.body {
+  height: calc(100% - 140px);
+  overflow: auto;
+  padding: 5%;
+  text-align: center;
+}
+
+.bg-img {
+  opacity: 0.2;
+  z-index: -10000;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.purchase-details {
+  margin: 50px auto;
+  width: 50%;
+}

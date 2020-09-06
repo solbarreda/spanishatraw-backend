@@ -9,3 +9,4 @@ gunicorn==20.0.4
 python-dotenv==0.14.0
 django-cors-headers==3.4.0
 django-heroku
+django-extensions==3.0.8

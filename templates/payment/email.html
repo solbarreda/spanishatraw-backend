@@ -1,0 +1,49 @@
+{% load static urls %} {% load inlinecss %} {% inlinecss "payment/email.css" %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+
+  <body class="body-container">
+    <header class="header">
+      <span>Invoice - Order #{{payment.payment_id}}</span>
+    </header>
+    <img
+      class="bg-img"
+      src="{% full_url %}{% static 'payment/fondoSlider.png'%}"
+    />
+    <div class="body">
+      Hi! thanks for acquiring our services. Here is a detail of your purchase:
+      <table class="purchase-details">
+        <tr class="detail">
+          <td class="left">Service:</td>
+          <td class="right">{{service.name}}</td>
+        </tr>
+        <tr class="detail">
+          <td class="left">Level:</td>
+          <td class="right">{{service.level.description}}</td>
+        </tr>
+        <tr class="detail">
+          <td class="left">Type:</td>
+          <td class="right">{{service.type.description}}</td>
+        </tr>
+        <tr class="detail">
+          <td class="left">Grade Range:</td>
+          <td class="right">
+            {{service.grade_range.min}} - {{service.grade_range.max}}
+          </td>
+        </tr>
+        <tr class="detail">
+          <td class="left">Price:</td>
+          <td class="right">
+            {{service.price.currency}} {{service.price.amount}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <footer class="footer"></footer>
+  </body>
+</html>
+{% endinlinecss %}

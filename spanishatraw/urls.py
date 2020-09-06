@@ -19,8 +19,23 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
+# from django.template.response import SimpleTemplateResponse
+
+
+# def test(request):
+#     from payment.models import Invoice
+#     invoice = Invoice.objects.all().first()
+#     return SimpleTemplateResponse('payment/email.html', context={
+#         'invoice': invoice,
+#         'customer': invoice.customer,
+#         'payment': invoice.payment,
+#         'service': invoice.service,
+#     })
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test/', test),
     path('api/v1/', include([
         path('auth/', include('rest_framework.urls')),
         path('services/', include('services.urls')),
